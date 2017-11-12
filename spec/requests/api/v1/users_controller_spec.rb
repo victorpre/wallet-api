@@ -68,4 +68,41 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
+
+
+  describe 'PUT #update' do
+
+    context 'when user is updated' do
+      before(:each) do
+        @user = create(:user)
+        @old_name = @user.name
+        put api_v1_user_path(@user.id, { user: { name: "not a real name" } } )
+      end
+
+      it 'changes the user name' do
+        expect(@old_name).not_to eq @user.reload.name
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when user is not updated' do
+      before(:each) do
+        @user = create(:user)
+        @old_name = @user.name
+        put api_v1_user_path(@user.id, { user: { name: "" } } )
+      end
+
+      it 'doesnt the user name' do
+        expect(@old_name).to eq @user.reload.name
+      end
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+    end
+  end
 end
