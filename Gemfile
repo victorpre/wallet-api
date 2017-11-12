@@ -41,14 +41,18 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'faker'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+# Auth
+gem 'devise'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
