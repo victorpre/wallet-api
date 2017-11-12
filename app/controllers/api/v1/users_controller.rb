@@ -1,7 +1,9 @@
 module Api
   module V1
-    class  UsersController < ApplicationController
+    class  UsersController < BaseController
       respond_to :json
+
+      before_action :require_login!, only: [:show]
 
       def show
         render json:  User.find(params[:id])
