@@ -63,7 +63,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
         subject { post api_v1_users_path, params: { user: @user_attributes } }
 
         it 'doesnt create the user' do
-          expect{subject}.not_to change{ User.count }
+          expect{ subject }.not_to change{ User.count }
         end
       end
     end
