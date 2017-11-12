@@ -6,7 +6,8 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
     before(:each) do
       @user = create(:user)
-      get api_v1_user_path(@user.id)
+
+      get api_v1_user_path(@user.id), headers: valid_headers
     end
 
     it 'returns the user' do

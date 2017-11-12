@@ -3,6 +3,8 @@ module Api
     class  UsersController < BaseController
       respond_to :json
 
+      before_action :require_login!, only: [:show]
+
       def show
         render json:  User.find(params[:id])
       end
