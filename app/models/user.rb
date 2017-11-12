@@ -8,6 +8,9 @@ class User < ApplicationRecord
 
   before_create :generate_auth_token
 
+  has_one :wallet
+  before_create :build_default_wallet
+
   def generate_auth_token
     begin
       self.auth_token = Devise.friendly_token
@@ -17,5 +20,11 @@ class User < ApplicationRecord
 
   def expire_auth_token!
     self.update_attributes(auth_token: nil)
+  end
+
+  private
+
+  def build_default_wallet
+    true if build_wallet
   end
 end
