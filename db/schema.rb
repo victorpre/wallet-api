@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113010730) do
+ActiveRecord::Schema.define(version: 20171113213640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(version: 20171113010730) do
     t.date "payment_due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "number", null: false
+    t.string "card_holder", null: false
+    t.integer "cvv", null: false
+    t.date "expiration_date"
+    t.decimal "remaining_limit", precision: 12, scale: 2, default: "0.0", null: false
     t.index ["wallet_id"], name: "index_credit_cards_on_wallet_id"
   end
 
