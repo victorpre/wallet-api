@@ -11,6 +11,12 @@ class CreditCard < ApplicationRecord
            :payment_due_date_cannot_be_in_the_past,
            :expiration_date_cannot_be_in_the_past
 
+  before_save :update_remaining_limit
+
+  def name
+    card_holder
+  end
+
   def user
     wallet.user
   end
@@ -31,5 +37,9 @@ class CreditCard < ApplicationRecord
     if expiration_date && expiration_date < Date.today
       errors.add(:expiration_date, "can't' be in the past. Card expired.")
     end
+  end
+
+  def update_remaining_limit
+    self.remaining_limit = limit - balance
   end
 end

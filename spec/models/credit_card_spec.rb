@@ -47,4 +47,17 @@ RSpec.describe CreditCard, type: :model do
       expect(invalid_subject).to be_invalid
     end
   end
+
+  describe 'remaining_limit update' do
+    subject { create(:credit_card, limit: 100, balance: 50) }
+
+    it 'has the remaining_limit set automatically on create' do
+      expect(subject.remaining_limit.to_f).to be 50.0
+    end
+
+    it 'has the remaining_limit set automatically on update' do
+      subject.balance = subject.balance + 1.0
+      expect{ subject.save }.to change{ subject.remaining_limit }.by(-1.0)
+    end
+  end
 end
