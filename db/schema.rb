@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112220832) do
+ActiveRecord::Schema.define(version: 20171113010730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.bigint "wallet_id"
+    t.decimal "limit", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
+    t.date "payment_due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_credit_cards_on_wallet_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
