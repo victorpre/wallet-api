@@ -30,4 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        wallet:
+          attributes:
+            limit:
+              exceed_max_limit: "can't' be greater than credit cards limits."
+
