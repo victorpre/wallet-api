@@ -13,6 +13,6 @@ class Wallet < ApplicationRecord
   private
 
   def limit_less_than_credit_cards
-    errors.add(:limit, "can't' be greater than credit cards limits.") if limit > max_limit
+    errors.add(:limit, :exceed_max_limit ) if limit > max_limit
   end
 end

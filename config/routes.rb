@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         delete '/signout', to: 'sessions#destroy'
       end
       get '/wallet', to: 'wallets#show'
+      put '/wallet/limit', to: 'wallets#limit'
     end
   end
 end
