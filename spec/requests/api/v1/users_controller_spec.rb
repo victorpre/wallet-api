@@ -77,7 +77,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       before(:each) do
         @user = create(:user)
         @old_name = @user.name
-        put api_v1_user_path(@user.id, { user: { name: "not a real name" } } )
+        put api_v1_user_path(@user.id, { user: { name: "not a real name" } }), headers: valid_headers
       end
 
       it 'changes the user name' do
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       before(:each) do
         @user = create(:user)
         @old_name = @user.name
-        put api_v1_user_path(@user.id, { user: { name: "" } } )
+        put api_v1_user_path(@user.id, { user: { name: "" } }), headers: valid_headers
       end
 
       it 'doesnt the user name' do

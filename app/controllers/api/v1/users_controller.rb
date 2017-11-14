@@ -3,10 +3,10 @@ module Api
     class  UsersController < BaseController
       respond_to :json
 
-      before_action :require_login!, only: [:show]
+      before_action :require_login!, except: [:create]
 
       def show
-        render json:  User.find(params[:id])
+        render json: User.find(params[:id])
       end
 
       def create
@@ -20,7 +20,7 @@ module Api
 
       def update
         @user = User.find(params[:id])
-        if @user.update(user_params)
+        if @user == current_user && @user.update(user_params)
           render json: @user, status: 200
         else
           render json: { errors: @user.errors }, status: 422
