@@ -7,8 +7,9 @@ Rails.application.routes.draw do
         post '/signin', to: 'sessions#create'
         delete '/signout', to: 'sessions#destroy'
       end
-      get '/wallet', to: 'wallets#show'
-      put '/wallet/limit', to: 'wallets#limit'
+      namespace :me do
+        resource :wallet, only: [:show, :update]
+      end
     end
   end
 end
