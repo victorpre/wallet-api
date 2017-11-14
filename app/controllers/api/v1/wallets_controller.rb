@@ -14,7 +14,7 @@ module Api
         if @wallet.update(wallet_params)
           render json: wallet_response, status: 202
         else
-          render json: @wallet.errors, status: 406
+          render json: @wallet.errors, status: 403
         end
       end
 
