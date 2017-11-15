@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Me::WalletsController, type: :request do
   before(:each) do
-    @user = create(:user, :with_credit_cards)
+    @user = create(:user, :in_debt)
   end
 
   let(:wallet) { @user.wallet }
@@ -13,7 +13,9 @@ RSpec.describe Api::V1::Me::WalletsController, type: :request do
     end
 
     let(:expected_response) { { limit: wallet.limit.to_s,
-                              max_limit: wallet.max_limit.to_s } }
+                                max_limit: wallet.max_limit.to_s,
+                                available_balance: wallet.available_balance.to_s,
+                            } }
 
     it 'returns info about the wallet' do
       wallet_response = as_json(response.body)

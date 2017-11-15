@@ -23,6 +23,7 @@ module Api
         def wallet_response
           { max_limit: @wallet.max_limit,
             limit:     @wallet.limit,
+            available_balance: @wallet.available_balance
           }
         end
 
