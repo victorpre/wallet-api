@@ -5,7 +5,6 @@ module Api
         respond_to :json
 
         before_action :require_login!
-        before_action :set_wallet
 
         def show
           render json: wallet_response, status: 201
@@ -20,10 +19,6 @@ module Api
         end
 
         private
-
-        def set_wallet
-          @wallet = current_user.wallet
-        end
 
         def wallet_response
           { max_limit: @wallet.max_limit,
