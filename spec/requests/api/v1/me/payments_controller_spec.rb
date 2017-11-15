@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Me::PaymentsController, type: :request do
-  describe 'POST #pay' do
+  describe 'POST #create' do
     before do
       @user = create :user
       @credit_card = create :credit_card, limit: 4000, balance: 2000, wallet: @user.wallet
@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Me::PaymentsController, type: :request do
       let(:payment_attributes) { { payment: { amount: 100 } } }
       let(:expected_response) { { paid: '100',
                                   balance: (2000-100).to_s,
-      } }
+                              } }
 
       it 'subtracts value from credit_card balance' do
         expect{ subject }.to change{@credit_card.reload.balance}.by(-100)
