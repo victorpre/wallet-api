@@ -7,7 +7,11 @@ RSpec.describe CreditCard, type: :model do
   it { is_expected.to validate_numericality_of(:number).only_integer }
   it { is_expected.to validate_presence_of(:card_holder) }
   it { is_expected.to validate_presence_of(:cvv) }
-  it { is_expected.to validate_presence_of(:expiration_date) }
+  it { is_expected.to validate_presence_of(:exp_month) }
+  it { is_expected.to validate_inclusion_of(:exp_month).in_range(1..12) }
+  it { is_expected.to validate_presence_of(:exp_year) }
+  it { is_expected.to validate_numericality_of(:exp_year).is_greater_than_or_equal_to(Date.today.year)}
+  it { is_expected.to validate_presence_of(:payment_due_date) }
 
   describe 'has a valid payment_due_date' do
     subject { build(:credit_card, payment_due_date: Faker::Date.forward(1)) }
@@ -23,8 +27,8 @@ RSpec.describe CreditCard, type: :model do
   end
 
   describe 'has a valid expiration_date ' do
-    subject { build(:credit_card, expiration_date: Faker::Date.forward(1)) }
-    let(:invalid_subject) { build(:credit_card, expiration_date: Faker::Date.backward(1)) }
+    subject { build(:credit_card, exp_year: (Date.today.year + 1)) }
+    let(:invalid_subject) { build(:credit_card, exp_year: (Date.today.year - 1) ) }
 
     it 'is valid when not in the past' do
       expect(subject).to be_valid

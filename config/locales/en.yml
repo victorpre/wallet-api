@@ -37,4 +37,7 @@ en:
           attributes:
             limit:
               exceed_max_limit: "can't' be greater than credit cards limits."
-
+        credit_card:
+          attributes:
+            payment_due_date:
+              date_in_past: "can't' be in the past."

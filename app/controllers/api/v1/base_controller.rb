@@ -1,6 +1,8 @@
 module Api
   module V1
     class  BaseController < ApplicationController
+      before_action :set_wallet, if: -> { current_user.present? }
+
       def require_login!
         return true if authenticate_token
         render json: { errors: I18n.t('devise.failure.unauthorized') }, status: 401
@@ -17,6 +19,10 @@ module Api
           return false unless token.present?
           User.find_by(auth_token: token)
         end
+      end
+
+      def set_wallet
+        @wallet = current_user.wallet
       end
     end
   end
