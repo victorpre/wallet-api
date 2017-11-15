@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
       namespace :me do
         resource :wallet, only: [:show, :update] do
-          resource :cards, only: [:create], controller: 'credit_cards'
+          resource :cards, only: [:create, :destroy], controller: 'credit_cards'
         end
       end
     end

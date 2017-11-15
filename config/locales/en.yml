@@ -41,3 +41,4 @@ en:
           attributes:
             payment_due_date:
               date_in_past: "can't' be in the past."
+  cannot_delete_credit_card: "Unauthorized to remove card."
