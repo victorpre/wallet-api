@@ -5,7 +5,8 @@ module Api
         include ActionView::Helpers::NumberHelper
         respond_to :json
 
-        before_action :set_credit_card
+        before_action :set_credit_card, only: [:show, :destroy]
+        before_action :initialize_credit_card, only: [:create]
         before_action :require_login!
 
         def create
@@ -17,10 +18,23 @@ module Api
           end
         end
 
+        def destroy
+          if @card.present?
+            @card.destroy
+            head :no_content
+          else
+            render json: { credit_card: [I18n.t('cannot_delete_credit_card')] }, status: 403
+          end
+        end
+
         private
 
-        def set_credit_card
+        def initialize_credit_card
           @card = @wallet.credit_cards.new
+        end
+
+        def set_credit_card
+          @card = @wallet.credit_cards.find_by(id: params[:id])
         end
 
         def credit_card_params
@@ -35,7 +49,8 @@ module Api
         end
 
         def credit_card_response
-          { card_holder: @card.card_holder,
+          { id: @card.id,
+            card_holder: @card.card_holder,
             limit: number_with_precision(@card.limit, precision: 2, strip_insignificant_zeros: true),
             exp_month: @card.exp_month,
             exp_year: @card.exp_year,
