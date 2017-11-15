@@ -14,6 +14,13 @@ class CreditCard < ApplicationRecord
 
   before_save :update_remaining_limit
 
+  scope :ordered_by_further_payment_due_date, -> { order(payment_due_date: :desc) }
+  scope :ordered_by_smaller_remaining_limit, -> { order(remaining_limit: :asc) }
+  scope :with_remaining_limit, -> { where('remaining_limit > 0') }
+  scope :candidates_for_purchase, -> { with_remaining_limit
+                                      .ordered_by_further_payment_due_date
+                                      .ordered_by_smaller_remaining_limit }
+
   def name
     card_holder
   end
