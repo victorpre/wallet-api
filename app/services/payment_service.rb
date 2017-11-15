@@ -19,11 +19,10 @@ class PaymentService
   private
 
   def payment_allowed?(card)
-    card.balance >= amount_to_be_paid
+    @amount.present? && card.balance >= amount_to_be_paid
   end
 
   def amount_to_be_paid
-    return false if @amount.empty?
     @amount.to_f.abs
   end
 end
