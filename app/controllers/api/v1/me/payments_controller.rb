@@ -26,7 +26,7 @@ module Api
         end
 
         def payment_with_service
-          payment_service = PaymentService.new(@wallet, payment_params)
+          payment_service = CreditCardService.new(@wallet, payment_params)
           @card = payment_service.pay_credit_card_bill(@card)
           @card.present? && @card.errors.empty?
         end

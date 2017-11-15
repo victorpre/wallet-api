@@ -27,7 +27,7 @@ module Api
         end
 
         def purchase_with_service
-          credit_card_service = PaymentService.new(@wallet, purchase_params)
+          credit_card_service = CreditCardService.new(@wallet, purchase_params)
           @purchase_result = credit_card_service.make_purchase
           @wallet = @purchase_result[:wallet]
           @wallet.errors.empty?

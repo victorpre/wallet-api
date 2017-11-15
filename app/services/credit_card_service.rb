@@ -1,5 +1,4 @@
-class PaymentService
-  # TODO: rename to CreditCardService
+class CreditCardService
   def initialize(wallet, params)
     @wallet = wallet
     @amount = params[:amount]
