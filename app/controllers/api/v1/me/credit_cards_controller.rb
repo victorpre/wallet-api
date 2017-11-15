@@ -2,7 +2,6 @@ module Api
   module V1
     module Me
       class CreditCardsController < BaseController
-        include ActionView::Helpers::NumberHelper
         respond_to :json
 
         before_action :set_credit_card, only: [:show, :destroy]
@@ -49,7 +48,8 @@ module Api
         end
 
         def credit_card_response
-          { id: @card.id,
+          {
+            id: @card.id,
             card_holder: @card.card_holder,
             limit: number_with_precision(@card.limit, precision: 2, strip_insignificant_zeros: true),
             exp_month: @card.exp_month,

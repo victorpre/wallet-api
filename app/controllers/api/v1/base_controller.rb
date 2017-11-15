@@ -1,6 +1,8 @@
 module Api
   module V1
     class  BaseController < ApplicationController
+      include ActionView::Helpers::NumberHelper
+
       before_action :set_wallet, if: -> { current_user.present? }
 
       def require_login!
