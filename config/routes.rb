@@ -8,7 +8,9 @@ Rails.application.routes.draw do
         delete '/signout', to: 'sessions#destroy'
       end
       namespace :me do
-        resource :wallet, only: [:show, :update]
+        resource :wallet, only: [:show, :update] do
+          resource :cards, only: [:create], controller: 'credit_cards'
+        end
       end
     end
   end
