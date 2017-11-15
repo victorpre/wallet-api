@@ -10,6 +10,10 @@ class Wallet < ApplicationRecord
     credit_cards.sum(:limit)
   end
 
+  def available_balance
+    credit_cards.sum(:remaining_limit)
+  end
+
   private
 
   def limit_less_than_credit_cards

@@ -22,5 +22,9 @@ FactoryBot.define do
     trait :invalid_payment_due_date do
       payment_due_date { Date.today - 7.days  }
     end
+
+    trait :with_high_balance do
+      balance { (limit.to_f - 10.0)  }
+    end
   end
 end
