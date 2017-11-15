@@ -21,9 +21,10 @@ module Api
         private
 
         def wallet_response
-          { max_limit: @wallet.max_limit,
-            limit:     @wallet.limit,
-            available_balance: @wallet.available_balance
+          {
+            max_limit: number_with_precision(@wallet.max_limit, precision: 2, strip_insignificant_zeros: true),
+            limit:    number_with_precision(@wallet.limit, precision: 2, strip_insignificant_zeros: true),
+            available_balance: number_with_precision(@wallet.available_balance, precision: 2, strip_insignificant_zeros: true)
           }
         end
 

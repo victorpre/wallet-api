@@ -12,9 +12,9 @@ RSpec.describe Api::V1::Me::WalletsController, type: :request do
       get api_v1_me_wallet_path, headers: valid_headers
     end
 
-    let(:expected_response) { { limit: wallet.limit.to_s,
-                                max_limit: wallet.max_limit.to_s,
-                                available_balance: wallet.available_balance.to_s,
+    let(:expected_response) { { limit: wallet.limit.to_i.to_s,
+                                max_limit: wallet.max_limit.to_i.to_s,
+                                available_balance: wallet.available_balance.to_i.to_s,
                             } }
 
     it 'returns info about the wallet' do
@@ -26,12 +26,12 @@ RSpec.describe Api::V1::Me::WalletsController, type: :request do
   describe 'PUT #update' do
     context 'when limit is allowed' do
       before do
-        params = { wallet: { limit: wallet.max_limit.to_s }}
+        params = { wallet: { limit: wallet.max_limit.to_i }}
         put api_v1_me_wallet_path(nil, params), headers: valid_headers
       end
 
-      let(:expected_response) { { limit: wallet.reload.limit.to_s,
-                                  max_limit: wallet.reload.max_limit.to_s } }
+      let(:expected_response) { { limit: wallet.reload.limit.to_i.to_s,
+                                  max_limit: wallet.reload.max_limit.to_i.to_s } }
 
       it 'returns updated info about the wallet' do
         wallet_response = as_json(response.body)

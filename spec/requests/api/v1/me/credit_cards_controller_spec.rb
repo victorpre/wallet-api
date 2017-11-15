@@ -30,7 +30,7 @@ RSpec.describe Api::V1::Me::CreditCardsController, type: :request do
     end
 
     context 'when credit card is invalid' do
-      let(:credit_card_attributes) { attributes_for :credit_card, :invalid_payment_due_date  }
+      let(:credit_card_attributes) { attributes_for :credit_card, :invalid_payment_due_date }
       let(:expected_response) { { limit: [errors_on('credit_card', 'payment_due_date')[:date_in_past]] } }
 
       it 'returns the error on credit_card' do

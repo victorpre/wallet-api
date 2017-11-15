@@ -42,3 +42,5 @@ en:
             payment_due_date:
               date_in_past: "can't' be in the past."
   cannot_delete_credit_card: "Unauthorized to remove card."
+  cannot_pay_credit_card: "Unauthorized to pay card bill."
+  cannot_pay_more_than_owes: "Cannot pay more than you owe."

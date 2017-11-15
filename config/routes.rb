@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       end
       namespace :me do
         resource :wallet, only: [:show, :update] do
-          resource :cards, only: [:create, :destroy], controller: 'credit_cards'
+          resource :cards, only: [:create, :destroy], controller: 'credit_cards' do
+            post '/:id/pay', to: 'payments#create', as: 'create_payment'
+          end
         end
       end
     end
