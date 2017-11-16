@@ -1,24 +1,26 @@
-# README
+# Wallet API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+Demo app and full API reference: https://multicard-wallet.herokuapp.com/
 
-* Ruby version
+## Clone the project
+`git clone https://github.com/victorpre/wallet-api.git && cd wallet-api/`
 
-* System dependencies
+## Install dependencies
+`bundle install`
 
-* Configuration
+## Setup your database (This app uses [PostgreSQL](https://www.postgresql.org/?&) )
 
-* Database creation
+`rake db:{create,migrate}`
 
-* Database initialization
+## Run the application
+`rails s`
 
-* How to run the test suite
+## What can you do?
+To see the available routes for api you can visit [this link](https://multicard-wallet.herokuapp.com/) or run `rake routes`
 
-* Services (job queues, cache servers, search engines, etc.)
+---
 
-* Deployment instructions
-
-* ...
+## Tests
+To run the automated tests using [rspec](https://github.com/rspec/rspec-rails), run:
+`rspec spec`
