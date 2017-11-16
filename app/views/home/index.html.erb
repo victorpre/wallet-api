@@ -1,0 +1,379 @@
+<%= markdown("# Welcome to the Wallet API")%>
+
+<%= markdown("---")%>
+
+<%= markdown("### This is where you can store multiples credit cards in one single place.")  %>
+
+<%= markdown("# API Reference:") %>
+
+<%= markdown('## Create a new User') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **POST** | `/api/v1/users` | - |**201**|**422**|
+')%>
+<%= markdown(' **Data Params**')%>
+<pre>
+{
+  "user":
+    {
+     "name": "Victor Presumido",
+      "email": "victor.presumido@gmail.com",
+      "password": "12345678",
+      "password_confirmation": "12345678"
+    }
+}
+</pre>
+
+
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X POST http://localhost:3000/api/v1/users -d '{"user": { "name": "Victor Presumido", "email": "victor.presumido@gmail.com", "password": "12345678", "password_confirmation": "12345678" }}' -H "Content-Type: application/json"
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "id":9,
+  "name":"Victor Presumido",
+  "created_at":"2017-11-16T01:27:11.025Z",
+  "updated_at":"2017-11-16T01:27:11.025Z",
+  "email":"victor.presumido@gmail.com",
+  "auth_token":"oVP4yxeo82GEB1LXJGg7"
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Sign in') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **POST** | `/api/v1/signin` | - |**202**|**401**|
+')%>
+<%= markdown(' **Data Params**')%>
+<pre>
+{
+  "user":
+    {
+      "email": "victor.presumido@gmail.com",
+      "password": "12345678",
+    }
+}
+</pre>
+
+
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X POST http://localhost:3000/api/v1/signin -d '{"user": { "email": "victor.presumido@gmail.com", "password": "12345678" }}' -H "Content-Type: application/json"
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "token":"oVP4yxeo82GEB1LXJGg7"
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Sign out') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **DELETE** | `/api/v1/signout` | - |**200**|**401**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X DELETE http://localhost:3000/api/v1/signout -H 'Authorization: Token token=oVP4yxeo82GEB1LXJGg7'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "notice":"Signed out successfully."
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Add credit card to wallet') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **POST** | `/api/v1/me/wallet/cards` | - |**201**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown(' **Data Params**')%>
+<pre>
+{
+  "credit_card":
+    {
+      "limit": "1000",
+      "balance": "0",
+      "number": "4111111111111111",
+      "card_holder": "Victor Presumido",
+      "exp_month": "7",
+      "exp_year": "2018",
+      "payment_due_date": "20181010",
+      "cvv": "123"
+    }
+}
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X POST http://localhost:3000/api/v1/me/wallet/cards -d \
+'{"credit_card":
+    {
+      "limit": "1000",
+      "balance": "0",
+      "number": "4111111111111111",
+      "card_holder": "Victor Presumido",
+      "exp_month": "7",
+      "exp_year": "2018",
+      "payment_due_date": "20181010",
+      "cvv": "123"
+    }
+}' \
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "id":5,
+  "card_holder":"Victor Presumido",
+  "limit":"1000",
+  "exp_month":7,
+  "exp_year":2018,
+  "payment_due_date":"2018-10-10",
+  "number":"4111111111111111",
+  "cvv":123
+}
+</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "limit":["is insufficient."]
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Remove credit card from wallet') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **DELETE** | `/api/v1/me/wallet/cards` | - |**204**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X DELETE http://localhost:3000/api/v1/me/wallet/cards -d \
+'{"id": "3"}' \
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<%= markdown('No Content')%>
+</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "credit_card":["Unauthorized to remove card."]
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Check your wallet') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **GET** | `/api/v1/me/wallet/` | - |**201**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X GET http://localhost:3000/api/v1/me/wallet \
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "max_limit":"1000",
+  "limit":"1000",
+  "available_balance":"1000"
+}
+</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "errors":"Access denied."
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Update your limit') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **PUT** | `/api/v1/me/wallet/` | - |**202**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X PUT http://localhost:3000/api/v1/me/wallet \
+-d '{ "wallet": {"limit": '1000'}}' \
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "max_limit":"1000",
+  "limit":"1000",
+  "available_balance":"1000"
+}</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "limit":["can't' be greater than credit cards limits."]
+}
+</pre>
+
+
+<%= markdown('***') %>
+<%= markdown('## Make a purchase') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **POST** | `/api/v1/me/wallet/purchase` | - |**201**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown(' **Data Params**')%>
+<pre>
+{
+  "purchase":
+    {
+      "amount": "1000",
+    }
+}
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X POST http://localhost:3000/api/v1/me/wallet/purchase -d '{ "purchase": {"amount": "1000"}}'\
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx'\
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "paid": "1000",
+  "cards_ids":[3]
+}
+</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "wallet":["Your purchase was rejected due the value."]
+}
+</pre>
+
+<%= markdown('***') %>
+<%= markdown('## Pay credit card bill') %>
+
+<%= markdown('
+| Method | URL | URL Params | Success status | Error status |
+|:---:|:------:|:----------:|:-----------:|:----------------:|--------------|
+| **POST** | `/api/v1/me/wallet/cards/:id/pay` | `id: card_id` |**202**|**403**|
+')%>
+<%= markdown(' **Request headers**')%>
+<%= markdown('This request requires an authentication token to be passed in the header. This token can be acquired by signing in and when the user is created.') %>
+<pre>
+Authorization: Token token
+</pre>
+
+<%= markdown(' **Data Params**')%>
+<pre>
+{
+  "payment":
+    {
+      "amount": "1000",
+    }
+}
+</pre>
+
+<%= markdown('**Running** ')%>
+<pre>
+curl -X POST http://localhost:3000/api/v1/me/wallet/cards/3/pay -d '{ "payment": {"amount": '1000'}}' \
+-H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
+-H 'Content-Type: application/json'
+</pre>
+
+<%= markdown('**Success response:**')%>
+<pre>
+{
+  "paid":"1000",
+  "balance":"0"
+}
+</pre>
+
+<%= markdown('**Error response:**')%>
+<pre>
+{
+  "credit_card":["Cannot pay more than you owe."]
+}
+</pre>
+
