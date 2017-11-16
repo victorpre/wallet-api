@@ -5,6 +5,8 @@ module ApplicationHelper
       hard_wrap:       true,
       link_attributes: { rel: 'nofollow', target: "_blank" },
       space_after_headers: true,
+      with_toc_data: true,
+      prettify: true,
       fenced_code_blocks: true
     }
 
