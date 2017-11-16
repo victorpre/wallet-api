@@ -22,6 +22,14 @@ class User < ApplicationRecord
     self.update_attributes(auth_token: nil)
   end
 
+  def set_token
+    if auth_token.nil?
+      generate_auth_token
+      self.save
+    end
+    auth_token
+  end
+
   private
 
   def build_default_wallet

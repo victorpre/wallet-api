@@ -25,7 +25,7 @@ RSpec.describe Api::V1::Me::PurchasesController, type: :request do
 
       let(:purchase_attributes) { { purchase: { amount: 5000 } } }
       let(:expected_response) { { paid: '5000',
-                                  cards_used: (@user.wallet.credit_cards.pluck :id).sort ,
+                                  cards_ids: (@user.wallet.credit_cards.pluck :id).sort ,
       } }
 
       it 'increments the value in balance' do
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::Me::PurchasesController, type: :request do
       it 'returns the cards used in response' do
         subject
         purchase_response = as_json(response.body)
-        expect(purchase_response[:cards_used].sort).to eq expected_response[:cards_used]
+        expect(purchase_response[:cards_ids].sort).to eq expected_response[:cards_ids]
       end
 
     end

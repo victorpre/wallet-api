@@ -18,7 +18,7 @@ module Api
 
         def purchase_reponse
           { paid: number_with_precision(purchase_params[:amount], precision: 2, strip_insignificant_zeros: true),
-            cards_used: @purchase_result[:cards].pluck(:id)
+            cards_ids: @purchase_result[:cards].pluck(:id)
           }
         end
 

@@ -8,6 +8,7 @@ module Api
         @user = User.find_by_email(sign_in_params[:email])
 
         if @user&.valid_password?(sign_in_params[:password])
+          @user.set_token
           return render json: { token: @user.auth_token }, status: 202
         end
         invalid_login_attempt
