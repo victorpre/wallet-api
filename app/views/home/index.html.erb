@@ -30,7 +30,7 @@
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X POST http://localhost:3000/api/v1/users -d '{"user": { "name": "Victor Presumido", "email": "victor.presumido@gmail.com", "password": "12345678", "password_confirmation": "12345678" }}' -H "Content-Type: application/json"
+curl -X POST https://multicard-wallet.herokuapp.com/api/v1/users -d '{"user": { "name": "Victor Presumido", "email": "victor.presumido@gmail.com", "password": "12345678", "password_confirmation": "12345678" }}' -H "Content-Type: application/json"
 </pre>
 
 <%= markdown('**Success response:**')%>
@@ -68,7 +68,7 @@ curl -X POST http://localhost:3000/api/v1/users -d '{"user": { "name": "Victor P
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X POST http://localhost:3000/api/v1/signin -d '{"user": { "email": "victor.presumido@gmail.com", "password": "12345678" }}' -H "Content-Type: application/json"
+curl -X POST https://multicard-wallet.herokuapp.com/api/v1/signin -d '{"user": { "email": "victor.presumido@gmail.com", "password": "12345678" }}' -H "Content-Type: application/json"
 </pre>
 
 <%= markdown('**Success response:**')%>
@@ -96,7 +96,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X DELETE http://localhost:3000/api/v1/signout -H 'Authorization: Token token=oVP4yxeo82GEB1LXJGg7'
+curl -X DELETE https://multicard-wallet.herokuapp.com/api/v1/signout -H 'Authorization: Token token=oVP4yxeo82GEB1LXJGg7'
 </pre>
 
 <%= markdown('**Success response:**')%>
@@ -139,7 +139,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X POST http://localhost:3000/api/v1/me/wallet/cards -d \
+curl -X POST https://multicard-wallet.herokuapp.com/api/v1/me/wallet/cards -d \
 '{"credit_card":
     {
       "limit": "1000",
@@ -193,7 +193,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X DELETE http://localhost:3000/api/v1/me/wallet/cards -d \
+curl -X DELETE https://multicard-wallet.herokuapp.com/api/v1/me/wallet/cards -d \
 '{"id": "3"}' \
 -H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
 -H 'Content-Type: application/json'
@@ -226,7 +226,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X GET http://localhost:3000/api/v1/me/wallet \
+curl -X GET https://multicard-wallet.herokuapp.com/api/v1/me/wallet \
 -H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
 -H 'Content-Type: application/json'
 </pre>
@@ -263,7 +263,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X PUT http://localhost:3000/api/v1/me/wallet \
+curl -X PUT https://multicard-wallet.herokuapp.com/api/v1/me/wallet \
 -d '{ "wallet": {"limit": '1000'}}' \
 -H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
 -H 'Content-Type: application/json'
@@ -311,7 +311,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X POST http://localhost:3000/api/v1/me/wallet/purchase -d '{ "purchase": {"amount": "1000"}}'\
+curl -X POST https://multicard-wallet.herokuapp.com/api/v1/me/wallet/purchase -d '{ "purchase": {"amount": "1000"}}'\
 -H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx'\
 -H 'Content-Type: application/json'
 </pre>
@@ -357,7 +357,7 @@ Authorization: Token token
 
 <%= markdown('**Running** ')%>
 <pre>
-curl -X POST http://localhost:3000/api/v1/me/wallet/cards/3/pay -d '{ "payment": {"amount": '1000'}}' \
+curl -X POST https://multicard-wallet.herokuapp.com/api/v1/me/wallet/cards/3/pay -d '{ "payment": {"amount": '1000'}}' \
 -H 'Authorization: Token token=syr7YA-Us8GYeCG96sKx' \
 -H 'Content-Type: application/json'
 </pre>
