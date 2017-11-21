@@ -21,7 +21,7 @@ RSpec.describe Api::V1::Me::PurchasesController, type: :request do
 
     subject { post create_purchase_api_v1_me_wallet_path(nil, purchase_attributes), headers: valid_headers }
 
-    describe 'when there is enough balance in multiples cards' do
+    context 'when there is enough balance in multiples cards' do
 
       let(:purchase_attributes) { { purchase: { amount: 5000 } } }
       let(:expected_response) { { paid: '5000',
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Me::PurchasesController, type: :request do
 
     end
 
-    describe 'when there is not enough balance' do
+    context 'when there is not enough balance' do
       let(:purchase_attributes) { { purchase: { amount: 5001 } } }
 
       it 'returns errors about max_limit exceeded' do
@@ -63,6 +63,27 @@ RSpec.describe Api::V1::Me::PurchasesController, type: :request do
       it 'returns status 403' do
         subject
         expect(response).to have_http_status(403)
+      end
+    end
+
+    context 'when amount is less than limit' do
+      context 'when available_balance + amount is greater than limit' do
+        let!(:purchase_attributes) { { purchase: { amount: 5000 } } }
+
+        before do
+          post create_purchase_api_v1_me_wallet_path(nil, purchase_attributes), headers: valid_headers
+        end
+
+        it 'returns errors about max_limit exceeded' do
+          subject
+          purchase_reponse = as_json(response.body)
+          expect(purchase_reponse).to include_json({wallet: [I18n.t('purchase_rejected')]})
+        end
+
+        it 'returns status 403' do
+          subject
+          expect(response).to have_http_status(403)
+        end
       end
     end
   end

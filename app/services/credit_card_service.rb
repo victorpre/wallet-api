@@ -57,7 +57,11 @@ class CreditCardService
 
   def purchase_allowed?
     value = amount_to_be_paid
-    value > 0 && @wallet.limit >= value && @wallet.available_balance >= value
+
+    value > 0 &&
+    @wallet.limit >= value &&
+    @wallet.available_balance >= value &&
+    (@wallet.used_balance + value) <= @wallet.limit
   end
 
   def payment_allowed?(card)
