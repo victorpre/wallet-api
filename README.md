@@ -1,7 +1,7 @@
 # Wallet API
 
 
-Demo app and full API reference: https://multicard-wallet.herokuapp.com/
+~~Demo app and full API reference: https://multicard-wallet.herokuapp.com/~~ dead 💀
 
 ## Clone the project
 `git clone https://github.com/victorpre/wallet-api.git && cd wallet-api/`
@@ -17,7 +17,7 @@ Demo app and full API reference: https://multicard-wallet.herokuapp.com/
 `rails s`
 
 ## What can you do?
-To see the available routes for api you can visit [this link](https://multicard-wallet.herokuapp.com/) or run `rake routes`
+`rake routes` to see available endpoints
 
 ---
 
